@@ -13,5 +13,6 @@ type FlowManager interface {
 	GetProcessorByID(flowID uuid.UUID, processorID uuid.UUID) (*models.Processor, error)
 	GetNextProcessors(flowID uuid.UUID, processorID uuid.UUID) ([]models.Processor, error)
 	ListProcessorsForFlow(flowID uuid.UUID) ([]models.Processor, error)
-	AddProcessorToFlow(flowID uuid.UUID, processor *models.Processor, position string, referenceProcessorID uuid.UUID) error
+	AddProcessorToFlowBefore(flowID uuid.UUID, processor *models.Processor, referenceProcessorID uuid.UUID) error
+	AddProcessorToFlowAfter(flowID uuid.UUID, processor *models.Processor, referenceProcessorID uuid.UUID) error
 }
