@@ -3,15 +3,15 @@ package definitions
 // PaginationRequest represents a request for paginated data.
 // It includes the page number and the number of items per page.
 type PaginationRequest struct {
-	Page    int `json:"page" query:"page"`         // Page number of the paginated data.
-	PerPage int `json:"per_page" query:"per_page"` // Number of items per page.
+	Page    int `json:"page" query:"page"`        // Page number of the paginated data.
+	PerPage int `json:"perPage" query:"per_page"` // Number of items per page.
 }
 
 // PaginatedData represents a paginated response.
 // It includes the data and the total count of items.
 type PaginatedData[T any] struct {
-	Data       []T // Data is the slice of items for the current page.
-	TotalCount int // TotalCount is the total number of items available.
+	Data       []T `json:"data"`       // Data is the slice of items for the current page.
+	TotalCount int `json:"totalCount"` // TotalCount is the total number of items available.
 }
 
 // Offset calculates the offset for the paginated data.

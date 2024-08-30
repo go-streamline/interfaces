@@ -57,7 +57,7 @@ type EngineFileHandler interface {
 
 // SessionUpdate represents the update status of a session being processed by the engine.
 type SessionUpdate struct {
-	SessionID uuid.UUID
-	Finished  bool
-	Error     error
+	SessionID uuid.UUID `json:"session_id"`
+	Finished  bool      `json:"finished"`
+	Error     error     `json:"error"`
 }

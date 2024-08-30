@@ -6,14 +6,14 @@ import (
 
 // LogEntry is a struct that represents a log entry in the write ahead log.
 type LogEntry struct {
-	SessionID     uuid.UUID
-	ProcessorName string
-	ProcessorID   string
-	FlowID        uuid.UUID
-	InputFile     string
-	OutputFile    string
-	FlowObject    EngineFlowObject
-	RetryCount    int
+	SessionID     uuid.UUID        `json:"session_id"`
+	ProcessorName string           `json:"processor_name"`
+	ProcessorID   string           `json:"processor_id"`
+	FlowID        uuid.UUID        `json:"flow_id"`
+	InputFile     string           `json:"input_file"`
+	OutputFile    string           `json:"output_file"`
+	FlowObject    EngineFlowObject `json:"flow_object"`
+	RetryCount    int              `json:"retry_count"`
 }
 
 // WriteAheadLogger is an interface for writing log entries to a file and reading them back.
