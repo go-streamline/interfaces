@@ -5,7 +5,13 @@ import (
 )
 
 type FlowManager interface {
-	GetInitialProcessors(flowID uuid.UUID) ([]*SimpleProcessor, error)
-	GetNextProcessors(processorID uuid.UUID) ([]*SimpleProcessor, error)
-	SaveFlowState(flow *SimpleFlow) error
+	GetFirstProcessorsForFlow(flowID uuid.UUID) ([]SimpleProcessor, error)
+	GetLastProcessorForFlow(flowID uuid.UUID) (*SimpleProcessor, error)
+	ListFlows() ([]Flow, error)
+	GetFlowByID(flowID uuid.UUID) (*Flow, error)
+	GetProcessorByID(flowID uuid.UUID, processorID uuid.UUID) (*SimpleProcessor, error)
+	GetNextProcessors(flowID uuid.UUID, processorID uuid.UUID) ([]SimpleProcessor, error)
+	AddProcessorToFlowBefore(flowID uuid.UUID, processor *SimpleProcessor, referenceProcessorID uuid.UUID) error
+	AddProcessorToFlowAfter(flowID uuid.UUID, processor *SimpleProcessor, referenceProcessorID uuid.UUID) error
+	SaveFlow(flow *Flow) error
 }
