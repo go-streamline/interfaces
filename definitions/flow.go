@@ -2,6 +2,7 @@ package definitions
 
 import (
 	"github.com/google/uuid"
+	"github.com/sirupsen/logrus"
 )
 
 type Flow struct {
@@ -19,5 +20,5 @@ type SimpleProcessor struct {
 	FlowOrder  int
 	Config     map[string]interface{}
 	MaxRetries int
-	LogLevel   string
+	LogLevel   logrus.Level
 }
