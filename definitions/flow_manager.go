@@ -1,7 +1,7 @@
 package definitions
 
 import (
-	"github.com/go-streamline/core/models"
+	"github.com/go-streamline/interfaces/definitions/models"
 	"github.com/google/uuid"
 )
 

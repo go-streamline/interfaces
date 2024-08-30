@@ -1,7 +1,6 @@
 package definitions
 
 import (
-	"github.com/go-streamline/core/definitions"
 	"github.com/google/uuid"
 )
 
@@ -12,7 +11,7 @@ type LogEntry struct {
 	FlowID        uuid.UUID
 	InputFile     string
 	OutputFile    string
-	FlowObject    definitions.EngineFlowObject
+	FlowObject    EngineFlowObject
 	RetryCount    int
 }
 type WriteAheadLogger interface {
