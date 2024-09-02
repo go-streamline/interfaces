@@ -21,6 +21,7 @@ type BaseProcessor struct {
 type TriggerProcessor interface {
 	Processor
 	GetScheduleConfig() ScheduleConfig
+	HandleSessionUpdate(update SessionUpdate)
 }
 
 type ScheduleConfig struct {
@@ -73,10 +74,6 @@ type Processor interface {
 	// Returns:
 	// - error: An error if setting the configuration fails.
 	SetConfig(config map[string]interface{}) error
-}
-
-type WriteOnlyFileHandler interface {
-	Write() (io.Writer, error)
 }
 
 // ProcessorFileHandler defines the interface for handling the current contents.
