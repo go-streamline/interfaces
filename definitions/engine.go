@@ -61,3 +61,8 @@ type SessionUpdate struct {
 	Finished  bool      `json:"finished"`
 	Error     error     `json:"error"`
 }
+
+type EngineInterface interface {
+	Submit(flowID uuid.UUID, metadata map[string]interface{}, reader io.Reader) uuid.UUID
+	SessionUpdates() <-chan SessionUpdate
+}

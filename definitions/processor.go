@@ -6,9 +6,26 @@ import (
 	"io"
 )
 
+type ScheduleType int
+
+const (
+	EventDriven ScheduleType = iota
+	CronDriven
+)
+
 // BaseProcessor represents a basic processor with an ID.
 type BaseProcessor struct {
 	ID string // ID is the unique identifier of the processor.
+}
+
+type TriggerProcessor interface {
+	Processor
+	GetScheduleConfig() ScheduleConfig
+}
+
+type ScheduleConfig struct {
+	Type     ScheduleType
+	CronExpr string // Used only if Type == CronDriven
 }
 
 // GetID returns the ID of the processor.
@@ -56,6 +73,10 @@ type Processor interface {
 	// Returns:
 	// - error: An error if setting the configuration fails.
 	SetConfig(config map[string]interface{}) error
+}
+
+type WriteOnlyFileHandler interface {
+	Write() (io.Writer, error)
 }
 
 // ProcessorFileHandler defines the interface for handling the current contents.
