@@ -8,7 +8,7 @@ type ProcessorFactory interface {
 	// Returns:
 	// - Processor: The retrieved processor.
 	// - error: An error if the retrieval fails.
-	GetProcessor(typeName string) (*Processor, error)
+	GetProcessor(typeName string) (Processor, error)
 
 	// GetTriggerProcessor retrieves a trigger processor by its type name.
 	// Parameters:
@@ -16,5 +16,5 @@ type ProcessorFactory interface {
 	// Returns:
 	// - TriggerProcessor: The retrieved trigger processor.
 	// - error: An error if the retrieval fails.
-	GetTriggerProcessor(typeName string) (*TriggerProcessor, error)
+	GetTriggerProcessor(typeName string) (TriggerProcessor, error)
 }
