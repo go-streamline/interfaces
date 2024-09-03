@@ -23,6 +23,14 @@ type FlowManager interface {
 	// - error: An error if the retrieval fails.
 	GetLastProcessorForFlow(flowID uuid.UUID) (*SimpleProcessor, error)
 
+	// GetTriggerProcessorsForFlow retrieves the trigger processors for a given flow.
+	// Parameters:
+	// - flowID: The unique identifier of the flow.
+	// Returns:
+	// - []*SimpleTriggerProcessor: A slice of the trigger processors for the flow.
+	// - error: An error if the retrieval fails.
+	GetTriggerProcessorsForFlow(flowID uuid.UUID) ([]*SimpleTriggerProcessor, error)
+
 	// ListFlows lists all flows with pagination and a time filter.
 	// Parameters:
 	// - pagination: The pagination request containing page number and items per page.

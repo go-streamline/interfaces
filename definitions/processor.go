@@ -18,10 +18,14 @@ type BaseProcessor struct {
 	ID string // ID is the unique identifier of the processor.
 }
 
+// TriggerProcessor defines the interface for a trigger processor.
 type TriggerProcessor interface {
 	Processor
-	GetScheduleConfig() ScheduleConfig
+	// GetScheduleType returns the scheduling type supported by the TriggerProcessor.
+	GetScheduleType() ScheduleType
+	// HandleSessionUpdate allows the TriggerProcessor to respond to session updates.
 	HandleSessionUpdate(update SessionUpdate)
+	// Close is called when the TriggerProcessor is being stopped or cleaned up.
 	Close() error
 }
 
