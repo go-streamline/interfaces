@@ -2,82 +2,100 @@ package definitions
 
 import (
 	"github.com/google/uuid"
+	"time"
 )
 
 // FlowManager defines the interface for managing and interacting with flows and processors within those flows.
 type FlowManager interface {
-	// GetFirstProcessorsForFlow retrieves the first processors in the execution order for a given flow.
+	// GetFirstProcessorsForFlow retrieves the first processors for a given flow.
 	// Parameters:
-	//   - flowID: The UUID of the flow.
+	// - flowID: The unique identifier of the flow.
 	// Returns:
-	//   - A slice of SimpleProcessor representing the first processors in the flow.
-	//   - An error if the operation fails.
+	// - []SimpleProcessor: A slice of the first processors for the flow.
+	// - error: An error if the retrieval fails.
 	GetFirstProcessorsForFlow(flowID uuid.UUID) ([]SimpleProcessor, error)
 
-	// GetLastProcessorForFlow retrieves the last processor in the execution order for a given flow.
+	// GetLastProcessorForFlow retrieves the last processor for a given flow.
 	// Parameters:
-	//   - flowID: The UUID of the flow.
+	// - flowID: The unique identifier of the flow.
 	// Returns:
-	//   - A pointer to a SimpleProcessor representing the last processor in the flow.
-	//   - An error if the operation fails.
+	// - *SimpleProcessor: The last processor for the flow.
+	// - error: An error if the retrieval fails.
 	GetLastProcessorForFlow(flowID uuid.UUID) (*SimpleProcessor, error)
 
-	// ListFlows retrieves a paginated list of flows.
+	// ListFlows lists all flows with pagination and a time filter.
 	// Parameters:
-	//   - pagination: A pointer to a PaginationRequest containing pagination information.
+	// - pagination: The pagination request containing page number and items per page.
+	// - since: The time filter to list flows updated since this time.
 	// Returns:
-	//   - A PaginatedData struct containing a slice of Flow pointers and the total count of flows.
-	//   - An error if the operation fails.
-	ListFlows(pagination *PaginationRequest) (PaginatedData[*Flow], error)
+	// - PaginatedData[*Flow]: The paginated data containing the flows.
+	// - error: An error if the listing fails.
+	ListFlows(pagination *PaginationRequest, since time.Time) (PaginatedData[*Flow], error)
 
-	// GetFlowByID retrieves a flow by its UUID.
+	// GetFlowByID retrieves a flow by its unique identifier.
 	// Parameters:
-	//   - flowID: The UUID of the flow to retrieve.
+	// - flowID: The unique identifier of the flow.
 	// Returns:
-	//   - A pointer to the Flow struct representing the retrieved flow.
-	//   - An error if the operation fails.
+	// - *Flow: The flow with the specified ID.
+	// - error: An error if the retrieval fails.
 	GetFlowByID(flowID uuid.UUID) (*Flow, error)
 
-	// GetProcessorByID retrieves a processor by its UUID within a specific flow.
+	// GetProcessorByID retrieves a processor by its unique identifier within a flow.
 	// Parameters:
-	//   - flowID: The UUID of the flow containing the processor.
-	//   - processorID: The UUID of the processor to retrieve.
+	// - flowID: The unique identifier of the flow.
+	// - processorID: The unique identifier of the processor.
 	// Returns:
-	//   - A pointer to a SimpleProcessor representing the retrieved processor.
-	//   - An error if the operation fails.
+	// - *SimpleProcessor: The processor with the specified ID.
+	// - error: An error if the retrieval fails.
 	GetProcessorByID(flowID uuid.UUID, processorID uuid.UUID) (*SimpleProcessor, error)
 
-	// GetNextProcessors retrieves the processors that follow a specific processor in a flow.
+	// GetNextProcessors retrieves the next processors for a given processor within a flow.
 	// Parameters:
-	//   - flowID: The UUID of the flow containing the processors.
-	//   - processorID: The UUID of the processor whose successors are to be retrieved.
+	// - flowID: The unique identifier of the flow.
+	// - processorID: The unique identifier of the processor.
 	// Returns:
-	//   - A slice of SimpleProcessor representing the next processors in the flow.
-	//   - An error if the operation fails.
+	// - []SimpleProcessor: A slice of the next processors for the specified processor.
+	// - error: An error if the retrieval fails.
 	GetNextProcessors(flowID uuid.UUID, processorID uuid.UUID) ([]SimpleProcessor, error)
 
-	// AddProcessorToFlowBefore adds a processor to a flow before a specified reference processor.
+	// AddProcessorToFlowBefore adds a processor to a flow before a reference processor.
 	// Parameters:
-	//   - flowID: The UUID of the flow to which the processor will be added.
-	//   - processor: A pointer to the SimpleProcessor to add to the flow.
-	//   - referenceProcessorID: The UUID of the processor before which the new processor will be added.
+	// - flowID: The unique identifier of the flow.
+	// - processor: The processor to add.
+	// - referenceProcessorID: The unique identifier of the reference processor.
 	// Returns:
-	//   - An error if the operation fails.
+	// - error: An error if the addition fails.
 	AddProcessorToFlowBefore(flowID uuid.UUID, processor *SimpleProcessor, referenceProcessorID uuid.UUID) error
 
-	// AddProcessorToFlowAfter adds a processor to a flow after a specified reference processor.
+	// AddProcessorToFlowAfter adds a processor to a flow after a reference processor.
 	// Parameters:
-	//   - flowID: The UUID of the flow to which the processor will be added.
-	//   - processor: A pointer to the SimpleProcessor to add to the flow.
-	//   - referenceProcessorID: The UUID of the processor after which the new processor will be added.
+	// - flowID: The unique identifier of the flow.
+	// - processor: The processor to add.
+	// - referenceProcessorID: The unique identifier of the reference processor.
 	// Returns:
-	//   - An error if the operation fails.
+	// - error: An error if the addition fails.
 	AddProcessorToFlowAfter(flowID uuid.UUID, processor *SimpleProcessor, referenceProcessorID uuid.UUID) error
 
-	// SaveFlow saves the given flow and its associated processors to the persistent storage.
+	// SaveFlow saves a flow.
 	// Parameters:
-	//   - flow: A pointer to the Flow struct representing the flow to be saved.
+	// - flow: The flow to save.
 	// Returns:
-	//   - An error if the operation fails.
+	// - error: An error if the save operation fails.
 	SaveFlow(flow *Flow) error
+
+	// GetLastUpdateTime retrieves the last update time for a given flow.
+	// Parameters:
+	// - flowID: The unique identifier of the flow.
+	// Returns:
+	// - time.Time: The last update time of the flow.
+	// - error: An error if the retrieval fails.
+	GetLastUpdateTime(flowIDs []uuid.UUID) (map[uuid.UUID]time.Time, error)
+
+	// SetFlowActive marks a flow as active or inactive.
+	// Parameters:
+	// - flowID: The unique identifier of the flow.
+	// - active: A boolean indicating whether the flow should be marked as active.
+	// Returns:
+	// - error: An error if the operation fails.
+	SetFlowActive(flowID uuid.UUID, active bool) error
 }
