@@ -39,6 +39,8 @@ type EngineIncomingObject struct {
 
 // EngineFileHandler defines the interface for handling files in the engine's processing flow.
 type EngineFileHandler interface {
+	ProcessorFileHandler
+
 	// GetInputFile returns the file path of the input file being processed.
 	GetInputFile() string
 
