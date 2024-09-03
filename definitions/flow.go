@@ -12,6 +12,7 @@ type Flow struct {
 	Name        string            `json:"name"`        // Name is the human-readable name of the flow.
 	Description string            `json:"description"` // Description provides a brief explanation of the flow's purpose.
 	Processors  []SimpleProcessor `json:"processors"`  // Processors is the list of processors that are part of the flow, executed in order.
+	Active      bool              `json:"active"`      // Active indicates whether the flow is currently active.
 }
 
 // SimpleProcessor represents a processor within a flow.
