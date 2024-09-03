@@ -22,6 +22,7 @@ type TriggerProcessor interface {
 	Processor
 	GetScheduleConfig() ScheduleConfig
 	HandleSessionUpdate(update SessionUpdate)
+	Close() error
 }
 
 type ScheduleConfig struct {
