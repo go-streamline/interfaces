@@ -28,6 +28,7 @@ type SimpleProcessor struct {
 	Config     map[string]interface{} `json:"config"`      // Config holds the specific configuration for the processor.
 	MaxRetries int                    `json:"max_retries"` // MaxRetries specifies the maximum number of retries allowed for this processor in case of failure.
 	LogLevel   logrus.Level           `json:"log_level"`   // LogLevel defines the logging level used for this processor.
+	Enabled    bool                   `json:"enabled"`     // Enabled indicates if the processor is enabled.
 }
 
 // SimpleTriggerProcessor represents a trigger processor within a flow.
@@ -42,4 +43,5 @@ type SimpleTriggerProcessor struct {
 	CronExpr     string                 `json:"cron_expr"`     // CronExpr is the cron expression used for scheduling, applicable if ScheduleType is CronDriven.
 	EventName    string                 `json:"event_name"`    // EventName is the name of the event to listen to, applicable if ScheduleType is EventDriven.
 	LogLevel     logrus.Level           `json:"log_level"`     // LogLevel defines the logging level used for this trigger processor.
+	Enabled      bool                   `json:"enabled"`       // Enabled indicates if the processor is enabled.
 }
