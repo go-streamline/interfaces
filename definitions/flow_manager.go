@@ -15,13 +15,13 @@ type FlowManager interface {
 	// - error: An error if the retrieval fails.
 	GetFirstProcessorsForFlow(flowID uuid.UUID) ([]SimpleProcessor, error)
 
-	// GetLastProcessorForFlow retrieves the last processor for a given flow.
+	// GetFlowProcessors retrieves all processors for a given flow.
 	// Parameters:
 	// - flowID: The unique identifier of the flow.
 	// Returns:
-	// - *SimpleProcessor: The last processor for the flow.
+	// - []SimpleProcessor: A slice of processors for the flow.
 	// - error: An error if the retrieval fails.
-	GetLastProcessorForFlow(flowID uuid.UUID) (*SimpleProcessor, error)
+	GetFlowProcessors(flowID uuid.UUID) ([]SimpleProcessor, error)
 
 	// GetTriggerProcessorsForFlow retrieves the trigger processors for a given flow.
 	// Parameters:
@@ -30,6 +30,14 @@ type FlowManager interface {
 	// - []*SimpleTriggerProcessor: A slice of the trigger processors for the flow.
 	// - error: An error if the retrieval fails.
 	GetTriggerProcessorsForFlow(flowID uuid.UUID) ([]*SimpleTriggerProcessor, error)
+
+	// GetProcessors retrieves processors by their unique identifiers.
+	// Parameters:
+	// - processorIDs: A slice of unique identifiers for the processors.
+	// Returns:
+	// - []SimpleProcessor: A slice of processors with the specified IDs.
+	// - error: An error if the retrieval fails.
+	GetProcessors(processorIDs []uuid.UUID) ([]SimpleProcessor, error)
 
 	// ListFlows lists all flows with pagination and a time filter.
 	// Parameters:
@@ -57,15 +65,6 @@ type FlowManager interface {
 	// - error: An error if the retrieval fails.
 	GetProcessorByID(flowID uuid.UUID, processorID uuid.UUID) (*SimpleProcessor, error)
 
-	// GetNextProcessors retrieves the next processors for a given processor within a flow.
-	// Parameters:
-	// - flowID: The unique identifier of the flow.
-	// - processorID: The unique identifier of the processor.
-	// Returns:
-	// - []SimpleProcessor: A slice of the next processors for the specified processor.
-	// - error: An error if the retrieval fails.
-	GetNextProcessors(flowID uuid.UUID, processorID uuid.UUID) ([]SimpleProcessor, error)
-
 	// AddProcessorToFlowBefore adds a processor to a flow before a reference processor.
 	// Parameters:
 	// - flowID: The unique identifier of the flow.
@@ -75,7 +74,7 @@ type FlowManager interface {
 	// - error: An error if the addition fails.
 	AddProcessorToFlowBefore(flowID uuid.UUID, processor *SimpleProcessor, referenceProcessorID uuid.UUID) error
 
-	// AddProcessorToFlowAfter adds a processor to a flow after a reference processor.
+	// AddProcessorToFlowAfter adds a processor to the flow after a reference processor.
 	// Parameters:
 	// - flowID: The unique identifier of the flow.
 	// - processor: The processor to add.
@@ -84,7 +83,7 @@ type FlowManager interface {
 	// - error: An error if the addition fails.
 	AddProcessorToFlowAfter(flowID uuid.UUID, processor *SimpleProcessor, referenceProcessorID uuid.UUID) error
 
-	// SaveFlow saves a flow.
+	// SaveFlow saves a flow and its processors to the database.
 	// Parameters:
 	// - flow: The flow to save.
 	// Returns:
@@ -93,9 +92,9 @@ type FlowManager interface {
 
 	// GetLastUpdateTime retrieves the last update time for a given flow.
 	// Parameters:
-	// - flowID: The unique identifier of the flow.
+	// - flowIDs: A slice of flow IDs.
 	// Returns:
-	// - time.Time: The last update time of the flow.
+	// - map[uuid.UUID]time.Time: A map of flow IDs to their last update time.
 	// - error: An error if the retrieval fails.
 	GetLastUpdateTime(flowIDs []uuid.UUID) (map[uuid.UUID]time.Time, error)
 
