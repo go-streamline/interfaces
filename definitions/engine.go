@@ -29,14 +29,6 @@ func (e *EngineFlowObject) EvaluateExpression(input string) (string, error) {
 	return utils.EvaluateExpression(input, e.Metadata)
 }
 
-// EngineIncomingObject represents an incoming object for the engine to process, including metadata, a data reader, and a session ID.
-type EngineIncomingObject struct {
-	FlowID    uuid.UUID
-	Metadata  map[string]interface{}
-	Reader    io.Reader
-	SessionID uuid.UUID
-}
-
 // EngineFileHandler defines the interface for handling files in the engine's processing flow.
 type EngineFileHandler interface {
 	ProcessorFileHandler
