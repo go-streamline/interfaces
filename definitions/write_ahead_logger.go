@@ -14,6 +14,7 @@ type LogEntry struct {
 	OutputFile            string           `json:"output_file"`
 	FlowObject            EngineFlowObject `json:"flow_object"`
 	RetryCount            int              `json:"retry_count"`
+	IsComplete            bool             `json:"is_complete"` // indicates if the processor completed
 	CompletedProcessorIDs []uuid.UUID      `json:"completed_processor_ids"`
 }
 
