@@ -4,7 +4,7 @@ package definitions
 type ProcessorFactory interface {
 	// GetProcessor retrieves a processor by its type name.
 	// Parameters:
-	// - id: The unique identifier of the processor.
+	// - id: The unique identifier that the processor should have.
 	// - typeName: The type name of the processor to retrieve.
 	// Returns:
 	// - Processor: The retrieved processor.
@@ -13,7 +13,7 @@ type ProcessorFactory interface {
 
 	// GetTriggerProcessor retrieves a trigger processor by its type name.
 	// Parameters:
-	// - id: The unique identifier of the trigger processor.
+	// - id: The unique identifier that the trigger processor should have.
 	// - typeName: The type name of the trigger processor to retrieve.
 	// Returns:
 	// - TriggerProcessor: The retrieved trigger processor.
