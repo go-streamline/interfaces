@@ -79,6 +79,11 @@ type Processor interface {
 	// Returns:
 	// - error: An error if setting the configuration fails.
 	SetConfig(config map[string]interface{}) error
+
+	// Close is called when the processor is being stopped or cleaned up.
+	// Returns:
+	// - error: An error if the close operation fails.
+	Close() error
 }
 
 // ProcessorFileHandler defines the interface for handling the current contents.
