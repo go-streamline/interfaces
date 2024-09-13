@@ -25,8 +25,6 @@ type TriggerProcessor interface {
 	GetScheduleType() ScheduleType
 	// HandleSessionUpdate allows the TriggerProcessor to respond to session updates.
 	HandleSessionUpdate(update SessionUpdate)
-	// Close is called when the TriggerProcessor is being stopped or cleaned up.
-	Close() error
 }
 
 type ScheduleConfig struct {
