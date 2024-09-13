@@ -1,5 +1,7 @@
 package definitions
 
+import "github.com/google/uuid"
+
 // ProcessorFactory defines an interface for retrieving processors and trigger processors.
 type ProcessorFactory interface {
 	// GetProcessor retrieves a processor by its type name.
@@ -9,7 +11,7 @@ type ProcessorFactory interface {
 	// Returns:
 	// - Processor: The retrieved processor.
 	// - error: An error if the retrieval fails.
-	GetProcessor(id string, typeName string) (Processor, error)
+	GetProcessor(id uuid.UUID, typeName string) (Processor, error)
 
 	// GetTriggerProcessor retrieves a trigger processor by its type name.
 	// Parameters:
@@ -18,5 +20,5 @@ type ProcessorFactory interface {
 	// Returns:
 	// - TriggerProcessor: The retrieved trigger processor.
 	// - error: An error if the retrieval fails.
-	GetTriggerProcessor(id string, typeName string) (TriggerProcessor, error)
+	GetTriggerProcessor(id uuid.UUID, typeName string) (TriggerProcessor, error)
 }
