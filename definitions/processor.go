@@ -13,9 +13,8 @@ const (
 	CronDriven
 )
 
-// BaseProcessor represents a basic processor with an ID.
+// BaseProcessor represents a basic processor.
 type BaseProcessor struct {
-	ID string // ID is the unique identifier of the processor.
 }
 
 // TriggerProcessor defines the interface for a trigger processor.
@@ -32,13 +31,6 @@ type ScheduleConfig struct {
 	CronExpr string // Used only if Type == CronDriven
 }
 
-// GetID returns the ID of the processor.
-// Returns:
-// - string: The ID of the processor.
-func (b *BaseProcessor) GetID() string {
-	return b.ID
-}
-
 // DecodeMap decodes a map into the output structure. This can be used to decode the configuration(which is a map) into its own struct.
 // Parameters:
 // - input: The input map to decode.
@@ -51,11 +43,6 @@ func (b *BaseProcessor) DecodeMap(input interface{}, output interface{}) error {
 
 // Processor defines the interface for a processor.
 type Processor interface {
-	// GetID returns the ID of the processor.
-	// Returns:
-	// - string: The ID of the processor.
-	GetID() string
-
 	// Name returns the name of the processor.
 	// Returns:
 	// - string: The name of the processor.
