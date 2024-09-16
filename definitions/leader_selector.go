@@ -13,8 +13,8 @@ type LeaderSelector interface {
 	// - error: An error if the check fails.
 	IsLeader() (bool, error)
 
-	// Stop terminates the leader election process.
+	// Close terminates the leader election process.
 	// Returns:
 	// - error: An error if the termination fails.
-	Stop() error
+	Close() error
 }
