@@ -13,6 +13,12 @@ type LeaderSelector interface {
 	// - error: An error if the check fails.
 	IsLeader() (bool, error)
 
+	// Nodes retrieves the list of nodes participating in the leader election.
+	// Returns:
+	// - []string: A slice of node identifiers.
+	// - error: An error if the retrieval fails.
+	Nodes() ([]string, error)
+
 	// Close terminates the leader election process.
 	// Returns:
 	// - error: An error if the termination fails.
