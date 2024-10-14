@@ -23,4 +23,9 @@ type LeaderSelector interface {
 	// Returns:
 	// - error: An error if the termination fails.
 	Close() error
+
+	// NodeName retrieves the name of the current node.
+	// Returns:
+	// - string: The name of the current node.
+	NodeName() string
 }
