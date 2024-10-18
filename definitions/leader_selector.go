@@ -28,4 +28,9 @@ type LeaderSelector interface {
 	// Returns:
 	// - string: The name of the current node.
 	NodeName() string
+
+	// NodeChangeChannel returns a channel that receives updates about node changes.
+	// Returns:
+	// - <-chan []string: A receive-only channel that provides slices of the nodes.
+	NodeChangeChannel() <-chan []string
 }
