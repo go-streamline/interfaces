@@ -41,7 +41,7 @@ type SimpleTriggerProcessor struct {
 	Config       map[string]interface{} `json:"config"`        // Config holds the specific configuration for the trigger processor.
 	ScheduleType ScheduleType           `json:"schedule_type"` // ScheduleType defines the type of scheduling (event-driven or cron-driven).
 	CronExpr     string                 `json:"cron_expr"`     // CronExpr is the cron expression used for scheduling, applicable if ScheduleType is CronDriven.
-	EventName    string                 `json:"event_name"`    // EventName is the name of the event to listen to, applicable if ScheduleType is EventDriven.
 	LogLevel     logrus.Level           `json:"log_level"`     // LogLevel defines the logging level used for this trigger processor.
+	SingleNode   bool                   `json:"single_node"`   // SingleNode defines wether or not this trigger processor should run on a single node when running in a cluster.
 	Enabled      bool                   `json:"enabled"`       // Enabled indicates if the processor is enabled.
 }
