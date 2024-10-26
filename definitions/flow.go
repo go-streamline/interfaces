@@ -26,7 +26,7 @@ type SimpleProcessor struct {
 	Type             string                 `json:"type"`            // Type indicates the type of the processor, used to determine its implementation.
 	Config           map[string]interface{} `json:"config"`          // Config holds the specific configuration for the processor.
 	MaxRetries       int                    `json:"max_retries"`     // MaxRetries specifies the maximum number of retries allowed for this processor in case of failure.
-	Backoff          int                    `json:"backoff"`         // Backoff specifies the delay (in seconds) between retry attempts for this processor in case of failure.
+	BackoffSeconds   int                    `json:"backoff_seconds"` // Specifies the delay in seconds between retry attempts for this processor in case of failure.
 	LogLevel         logrus.Level           `json:"log_level"`       // LogLevel defines the logging level used for this processor.
 	Enabled          bool                   `json:"enabled"`         // Enabled indicates if the processor is enabled.
 	NextProcessorIDs []uuid.UUID            `json:"next_processors"` // NextProcessorIDs explicitly defines the processors that should run after this one.
