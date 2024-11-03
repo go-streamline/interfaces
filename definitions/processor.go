@@ -17,11 +17,42 @@ const (
 type BaseProcessor struct {
 }
 
+type BaseProcessorInterface interface {
+	// Name returns the name of the processor.
+	// Returns:
+	// - string: The name of the processor.
+	Name() string
+
+	// SetConfig sets the configuration for the processor.
+	// Parameters:
+	// - config: A map containing the configuration settings.
+	// Returns:
+	// - error: An error if setting the configuration fails.
+	SetConfig(config map[string]interface{}) error
+
+	// Close is called when the processor is being stopped or cleaned up.
+	// Returns:
+	// - error: An error if the close operation fails.
+	Close() error
+}
+
 // TriggerProcessor defines the interface for a trigger processor.
 type TriggerProcessor interface {
-	Processor
+	BaseProcessorInterface
+
+	// Execute executes the processor logic.
+	// Parameters:
+	// - info: The EngineFlowObject containing the execution information.
+	// - fileHandler: The ProcessorFileHandler for handling file operations.
+	// - log: The logger for logging information.
+	// Returns:
+	// - *EngineFlowObject: The updated EngineFlowObject after execution.
+	// - error: An error if the execution fails.
+	Execute(info *EngineFlowObject, fileHandler ProcessorFileHandler, log *logrus.Logger) ([]*EngineFlowObject, error)
+
 	// GetScheduleType returns the scheduling type supported by the TriggerProcessor.
 	GetScheduleType() ScheduleType
+
 	// HandleSessionUpdate allows the TriggerProcessor to respond to session updates.
 	HandleSessionUpdate(update SessionUpdate)
 }
@@ -43,10 +74,7 @@ func (b *BaseProcessor) DecodeMap(input interface{}, output interface{}) error {
 
 // Processor defines the interface for a processor.
 type Processor interface {
-	// Name returns the name of the processor.
-	// Returns:
-	// - string: The name of the processor.
-	Name() string
+	BaseProcessorInterface
 
 	// Execute executes the processor logic.
 	// Parameters:
@@ -57,18 +85,6 @@ type Processor interface {
 	// - *EngineFlowObject: The updated EngineFlowObject after execution.
 	// - error: An error if the execution fails.
 	Execute(info *EngineFlowObject, fileHandler ProcessorFileHandler, log *logrus.Logger) (*EngineFlowObject, error)
-
-	// SetConfig sets the configuration for the processor.
-	// Parameters:
-	// - config: A map containing the configuration settings.
-	// Returns:
-	// - error: An error if setting the configuration fails.
-	SetConfig(config map[string]interface{}) error
-
-	// Close is called when the processor is being stopped or cleaned up.
-	// Returns:
-	// - error: An error if the close operation fails.
-	Close() error
 }
 
 // ProcessorFileHandler defines the interface for handling the current contents.
