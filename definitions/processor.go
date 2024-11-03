@@ -46,7 +46,7 @@ type TriggerProcessor interface {
 	// - fileHandler: The ProcessorFileHandler for handling file operations.
 	// - log: The logger for logging information.
 	// Returns:
-	// - *EngineFlowObject: The updated EngineFlowObject after execution.
+	// - []*EngineFlowObject: A list of *EngineFlowObject after execution.
 	// - error: An error if the execution fails.
 	Execute(info *EngineFlowObject, fileHandler ProcessorFileHandler, log *logrus.Logger) ([]*EngineFlowObject, error)
 
