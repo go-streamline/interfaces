@@ -36,6 +36,11 @@ type BaseProcessorInterface interface {
 	Close() error
 }
 
+type TriggerProcessorResponse struct {
+	EngineFlowObject *EngineFlowObject
+	FileHandler      ProcessorFileHandler
+}
+
 // TriggerProcessor defines the interface for a trigger processor.
 type TriggerProcessor interface {
 	BaseProcessorInterface
@@ -43,12 +48,16 @@ type TriggerProcessor interface {
 	// Execute executes the processor logic.
 	// Parameters:
 	// - info: The EngineFlowObject containing the execution information.
-	// - fileHandler: The ProcessorFileHandler for handling file operations.
+	// - produceFileHandler: A function to produce a ProcessorFileHandler.
 	// - log: The logger for logging information.
 	// Returns:
 	// - []*EngineFlowObject: A list of *EngineFlowObject after execution.
 	// - error: An error if the execution fails.
-	Execute(info *EngineFlowObject, fileHandler ProcessorFileHandler, log *logrus.Logger) ([]*EngineFlowObject, error)
+	Execute(
+		info *EngineFlowObject,
+		produceFileHandler func() ProcessorFileHandler,
+		log *logrus.Logger,
+	) ([]TriggerProcessorResponse, error)
 
 	// GetScheduleType returns the scheduling type supported by the TriggerProcessor.
 	GetScheduleType() ScheduleType
