@@ -9,6 +9,7 @@ import (
 // EngineFlowObject represents the flow of data through the engine, containing metadata for the processing context.
 type EngineFlowObject struct {
 	Metadata map[string]interface{} `json:"metadata"`
+	TPMark   string                 `json:"tp_mark"` // TPMark is a unique identifier for the flow object given by the trigger processor
 }
 
 // EvaluateExpression evaluates a string expression using the metadata in the EngineFlowObject.
@@ -54,6 +55,7 @@ type SessionUpdate struct {
 	SessionID uuid.UUID `json:"session_id"`
 	Finished  bool      `json:"finished"`
 	Error     error     `json:"error"`
+	TPMark    string    `json:"tp_mark"`
 }
 
 type EngineInterface interface {
