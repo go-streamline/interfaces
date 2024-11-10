@@ -1,6 +1,7 @@
 package definitions
 
 import (
+	"github.com/expr-lang/expr"
 	"github.com/go-streamline/interfaces/utils"
 	"github.com/google/uuid"
 	"io"
@@ -22,12 +23,13 @@ type EngineFlowObject struct {
 //
 // Parameters:
 //   - input: The string expression to evaluate.
+//   - exprOptions: Additional options for the expression evaluation. This will allow you to add custom functions or variables.
 //
 // Returns:
 //   - A string containing the evaluated result.
 //   - An error if the evaluation fails.
-func (e *EngineFlowObject) EvaluateExpression(input string) (string, error) {
-	return utils.EvaluateExpression(input, e.Metadata)
+func (e *EngineFlowObject) EvaluateExpression(input string, exprOptions ...expr.Option) (string, error) {
+	return utils.EvaluateExpression(input, e.Metadata, exprOptions...)
 }
 
 // EngineFileHandler defines the interface for handling files in the engine's processing flow.

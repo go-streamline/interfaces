@@ -58,12 +58,12 @@ var envVarFunc = expr.Function("getEnv", func(params ...any) (any, error) {
 // The input string may contain expressions enclosed in `${}` that are evaluated based on the provided data map.
 // Supported functions include uuid(), random(), and getEnv().
 // Returns the input string with all expressions evaluated, or an error if the evaluation fails.
-func evaluateExpression(input string, data map[string]interface{}) (string, error) {
+func evaluateExpression(input string, data map[string]interface{}, exprOptions ...expr.Option) (string, error) {
 	var result strings.Builder
 	var expression strings.Builder
 	inExpression := false
 	escapeNext := false
-
+	exprOptions = append(exprOptions, expr.Env(data), uuidFunc, envVarFunc, randomFunc)
 	for i := 0; i < len(input); i++ {
 		char := input[i]
 
@@ -93,7 +93,7 @@ func evaluateExpression(input string, data map[string]interface{}) (string, erro
 
 		if char == '}' && inExpression {
 			exprStr := expression.String()
-			program, err := expr.Compile(exprStr, expr.Env(data), uuidFunc, envVarFunc, randomFunc)
+			program, err := expr.Compile(exprStr, exprOptions...)
 			if err != nil {
 				return "", fmt.Errorf("%w: %v", ErrFailedToCompileExpression, err)
 			}
