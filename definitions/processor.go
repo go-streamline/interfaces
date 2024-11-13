@@ -57,7 +57,7 @@ type TriggerProcessor interface {
 		info *EngineFlowObject,
 		produceFileHandler func() ProcessorFileHandler,
 		log *logrus.Logger,
-	) ([]TriggerProcessorResponse, error)
+	) ([]*TriggerProcessorResponse, error)
 
 	// GetScheduleType returns the scheduling type supported by the TriggerProcessor.
 	GetScheduleType() ScheduleType

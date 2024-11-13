@@ -25,6 +25,16 @@ func TestEvaluateExpression_MultipleExpressions(t *testing.T) {
 	assert.Equal(t, "result/result2/do", result)
 }
 
+func TestEvaluateExpression_WithJSON(t *testing.T) {
+	data := map[string]interface{}{}
+	value, err := EvaluateExpression(`${toJSON({"name": "John", "age": 30})}`, data)
+	assert.NoError(t, err)
+	assert.Equal(t, `{
+  "age": 30,
+  "name": "John"
+}`, value)
+}
+
 func TestEvaluateExpression_WithUUID(t *testing.T) {
 	data := map[string]interface{}{}
 	result, err := EvaluateExpression("${uuid()}", data)

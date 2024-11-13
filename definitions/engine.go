@@ -1,6 +1,7 @@
 package definitions
 
 import (
+	"github.com/expr-lang/expr"
 	"github.com/go-streamline/interfaces/utils"
 	"github.com/google/uuid"
 	"io"
@@ -9,6 +10,7 @@ import (
 // EngineFlowObject represents the flow of data through the engine, containing metadata for the processing context.
 type EngineFlowObject struct {
 	Metadata map[string]interface{} `json:"metadata"`
+	TPMark   string                 `json:"tp_mark"` // TPMark is a unique identifier for the flow object given by the trigger processor
 }
 
 // EvaluateExpression evaluates a string expression using the metadata in the EngineFlowObject.
@@ -21,12 +23,13 @@ type EngineFlowObject struct {
 //
 // Parameters:
 //   - input: The string expression to evaluate.
+//   - exprOptions: Additional options for the expression evaluation. This will allow you to add custom functions or variables.
 //
 // Returns:
 //   - A string containing the evaluated result.
 //   - An error if the evaluation fails.
-func (e *EngineFlowObject) EvaluateExpression(input string) (string, error) {
-	return utils.EvaluateExpression(input, e.Metadata)
+func (e *EngineFlowObject) EvaluateExpression(input string, exprOptions ...expr.Option) (string, error) {
+	return utils.EvaluateExpression(input, e.Metadata, exprOptions...)
 }
 
 // EngineFileHandler defines the interface for handling files in the engine's processing flow.
@@ -54,6 +57,7 @@ type SessionUpdate struct {
 	SessionID uuid.UUID `json:"session_id"`
 	Finished  bool      `json:"finished"`
 	Error     error     `json:"error"`
+	TPMark    string    `json:"tp_mark"`
 }
 
 type EngineInterface interface {
