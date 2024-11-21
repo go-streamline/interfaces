@@ -13,7 +13,7 @@ type FlowManager interface {
 	// Returns:
 	// - []SimpleProcessor: A slice of the first processors for the flow.
 	// - error: An error if the retrieval fails.
-	GetFirstProcessorsForFlow(flowID uuid.UUID) ([]SimpleProcessor, error)
+	GetFirstProcessorsForFlow(flowID uuid.UUID) ([]*SimpleProcessor, error)
 
 	// GetFlowProcessors retrieves all processors for a given flow.
 	// Parameters:
@@ -21,7 +21,7 @@ type FlowManager interface {
 	// Returns:
 	// - []SimpleProcessor: A slice of processors for the flow.
 	// - error: An error if the retrieval fails.
-	GetFlowProcessors(flowID uuid.UUID) ([]SimpleProcessor, error)
+	GetFlowProcessors(flowID uuid.UUID) ([]*SimpleProcessor, error)
 
 	// GetTriggerProcessorsForFlow retrieves the trigger processors for a given flow.
 	// Parameters:
@@ -37,7 +37,7 @@ type FlowManager interface {
 	// Returns:
 	// - []SimpleProcessor: A slice of processors with the specified IDs.
 	// - error: An error if the retrieval fails.
-	GetProcessors(processorIDs []uuid.UUID) ([]SimpleProcessor, error)
+	GetProcessors(processorIDs []uuid.UUID) ([]*SimpleProcessor, error)
 
 	// ListFlows lists all flows with pagination and a time filter.
 	// Parameters:
