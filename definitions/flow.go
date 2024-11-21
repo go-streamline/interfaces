@@ -8,13 +8,13 @@ import (
 // Flow represents a flow of processors that are executed in a specific order.
 // It contains the flow's metadata such as its ID, name, description, and the processors that belong to it.
 type Flow struct {
-	ID                uuid.UUID                `json:"id"`                 // ID uniquely identifies the flow.
-	Name              string                   `json:"name"`               // Name is the human-readable name of the flow.
-	Description       string                   `json:"description"`        // Description provides a brief explanation of the flow's purpose.
-	Processors        []SimpleProcessor        `json:"processors"`         // Processors is the list of processors that are part of the flow, executed in order.
-	TriggerProcessors []SimpleTriggerProcessor `json:"trigger_processors"` // TriggerProcessors is the list of trigger processors associated with the flow.
-	Active            bool                     `json:"active"`             // Active indicates whether the flow is currently active.
-	LastUpdated       int64                    `json:"last_updated"`       // LastUpdated indicates the last update timestamp for the flow.
+	ID                uuid.UUID                 `json:"id"`                 // ID uniquely identifies the flow.
+	Name              string                    `json:"name"`               // Name is the human-readable name of the flow.
+	Description       string                    `json:"description"`        // Description provides a brief explanation of the flow's purpose.
+	Processors        []*SimpleProcessor        `json:"processors"`         // Processors is the list of processors that are part of the flow, executed in order.
+	TriggerProcessors []*SimpleTriggerProcessor `json:"trigger_processors"` // TriggerProcessors is the list of trigger processors associated with the flow.
+	Active            bool                      `json:"active"`             // Active indicates whether the flow is currently active.
+	LastUpdated       int64                     `json:"last_updated"`       // LastUpdated indicates the last update timestamp for the flow.
 }
 
 // SimpleProcessor represents a processor within a flow.
