@@ -35,14 +35,13 @@ type SimpleProcessor struct {
 // SimpleTriggerProcessor represents a trigger processor within a flow.
 // It contains metadata about the trigger processor, including its configuration and scheduling parameters.
 type SimpleTriggerProcessor struct {
-	ID           uuid.UUID              `json:"id"`            // ID uniquely identifies the trigger processor.
-	FlowID       uuid.UUID              `json:"flow_id"`       // FlowID is the ID of the flow to which the trigger processor belongs.
-	Name         string                 `json:"name"`          // Name is the human-readable name of the trigger processor.
-	Type         string                 `json:"type"`          // Type indicates the type of the trigger processor, used to determine its implementation.
-	Config       map[string]interface{} `json:"config"`        // Config holds the specific configuration for the trigger processor.
-	ScheduleType ScheduleType           `json:"schedule_type"` // ScheduleType defines the type of scheduling (event-driven or cron-driven).
-	CronExpr     string                 `json:"cron_expr"`     // CronExpr is the cron expression used for scheduling, applicable if ScheduleType is CronDriven.
-	LogLevel     logrus.Level           `json:"log_level"`     // LogLevel defines the logging level used for this trigger processor.
-	SingleNode   bool                   `json:"single_node"`   // SingleNode defines wether or not this trigger processor should run on a single node when running in a cluster.
-	Enabled      bool                   `json:"enabled"`       // Enabled indicates if the processor is enabled.
+	ID         uuid.UUID              `json:"id"`          // ID uniquely identifies the trigger processor.
+	FlowID     uuid.UUID              `json:"flow_id"`     // FlowID is the ID of the flow to which the trigger processor belongs.
+	Name       string                 `json:"name"`        // Name is the human-readable name of the trigger processor.
+	Type       string                 `json:"type"`        // Type indicates the type of the trigger processor, used to determine its implementation.
+	Config     map[string]interface{} `json:"config"`      // Config holds the specific configuration for the trigger processor.
+	CronExpr   string                 `json:"cron_expr"`   // CronExpr is the cron expression used for scheduling, applicable if ScheduleType is CronDriven.
+	LogLevel   logrus.Level           `json:"log_level"`   // LogLevel defines the logging level used for this trigger processor.
+	SingleNode bool                   `json:"single_node"` // SingleNode defines wether or not this trigger processor should run on a single node when running in a cluster.
+	Enabled    bool                   `json:"enabled"`     // Enabled indicates if the processor is enabled.
 }
