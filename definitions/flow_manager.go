@@ -46,7 +46,7 @@ type FlowManager interface {
 	// Returns:
 	// - PaginatedData[*Flow]: The paginated data containing the flows.
 	// - error: An error if the listing fails.
-	ListFlows(pagination *PaginationRequest, since time.Time) (PaginatedData[*Flow], error)
+	ListFlows(pagination *PaginationRequest, since time.Time) (*PaginatedData[*Flow], error)
 
 	// GetFlowByID retrieves a flow by its unique identifier.
 	// Parameters:
