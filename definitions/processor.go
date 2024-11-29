@@ -1,6 +1,7 @@
 package definitions
 
 import (
+	"fmt"
 	"github.com/mitchellh/mapstructure"
 	"github.com/sirupsen/logrus"
 	"io"
@@ -95,6 +96,9 @@ type Processor interface {
 	// - error: An error if the execution fails.
 	Execute(info *EngineFlowObject, fileHandler ProcessorFileHandler, log *logrus.Logger) (*EngineFlowObject, error)
 }
+
+var ErrInputFileNotInitialized = fmt.Errorf("input file not initialized")
+var ErrOutputFileNotInitialized = fmt.Errorf("output file not initialized")
 
 // ProcessorFileHandler defines the interface for handling the current contents.
 type ProcessorFileHandler interface {
