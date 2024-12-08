@@ -12,6 +12,7 @@ type Flow struct {
 	Name              string                    `json:"name"`               // Name is the human-readable name of the flow.
 	Description       string                    `json:"description"`        // Description provides a brief explanation of the flow's purpose.
 	Processors        []*SimpleProcessor        `json:"processors"`         // Processors is the list of processors that are part of the flow, executed in order.
+	FirstProcessors   []*SimpleProcessor        `json:"first_processors"`   // FirstProcessors is the list of processors that should run first in the flow.
 	TriggerProcessors []*SimpleTriggerProcessor `json:"trigger_processors"` // TriggerProcessors is the list of trigger processors associated with the flow.
 	Active            bool                      `json:"active"`             // Active indicates whether the flow is currently active.
 	LastUpdated       int64                     `json:"last_updated"`       // LastUpdated indicates the last update timestamp for the flow.
@@ -20,16 +21,16 @@ type Flow struct {
 // SimpleProcessor represents a processor within a flow.
 // It contains metadata about the processor, including its configuration and execution parameters.
 type SimpleProcessor struct {
-	ID               uuid.UUID              `json:"id"`              // ID uniquely identifies the processor.
-	FlowID           uuid.UUID              `json:"flow_id"`         // FlowID is the ID of the flow to which the processor belongs.
-	Name             string                 `json:"name"`            // Name is the human-readable name of the processor.
-	Type             string                 `json:"type"`            // Type indicates the type of the processor, used to determine its implementation.
-	Config           map[string]interface{} `json:"config"`          // Config holds the specific configuration for the processor.
-	MaxRetries       int                    `json:"max_retries"`     // MaxRetries specifies the maximum number of retries allowed for this processor in case of failure.
-	BackoffSeconds   int                    `json:"backoff_seconds"` // Specifies the delay in seconds between retry attempts for this processor in case of failure.
-	LogLevel         logrus.Level           `json:"log_level"`       // LogLevel defines the logging level used for this processor.
-	Enabled          bool                   `json:"enabled"`         // Enabled indicates if the processor is enabled.
-	NextProcessorIDs []uuid.UUID            `json:"next_processors"` // NextProcessorIDs explicitly defines the processors that should run after this one.
+	ID             uuid.UUID              `json:"id"`              // ID uniquely identifies the processor.
+	FlowID         uuid.UUID              `json:"flow_id"`         // FlowID is the ID of the flow to which the processor belongs.
+	Name           string                 `json:"name"`            // Name is the human-readable name of the processor.
+	Type           string                 `json:"type"`            // Type indicates the type of the processor, used to determine its implementation.
+	Config         map[string]interface{} `json:"config"`          // Config holds the specific configuration for the processor.
+	MaxRetries     int                    `json:"max_retries"`     // MaxRetries specifies the maximum number of retries allowed for this processor in case of failure.
+	BackoffSeconds int                    `json:"backoff_seconds"` // Specifies the delay in seconds between retry attempts for this processor in case of failure.
+	LogLevel       logrus.Level           `json:"log_level"`       // LogLevel defines the logging level used for this processor.
+	Enabled        bool                   `json:"enabled"`         // Enabled indicates if the processor is enabled.
+	NextProcessors []*SimpleProcessor     `json:"next_processors"` // NextProcessors explicitly defines the processors that should run after this one.
 }
 
 // SimpleTriggerProcessor represents a trigger processor within a flow.
@@ -42,6 +43,6 @@ type SimpleTriggerProcessor struct {
 	Config     map[string]interface{} `json:"config"`      // Config holds the specific configuration for the trigger processor.
 	CronExpr   string                 `json:"cron_expr"`   // CronExpr is the cron expression used for scheduling, applicable if ScheduleType is CronDriven.
 	LogLevel   logrus.Level           `json:"log_level"`   // LogLevel defines the logging level used for this trigger processor.
-	SingleNode bool                   `json:"single_node"` // SingleNode defines wether or not this trigger processor should run on a single node when running in a cluster.
+	SingleNode bool                   `json:"single_node"` // SingleNode defines whether this trigger processor should run on a single node when running in a cluster.
 	Enabled    bool                   `json:"enabled"`     // Enabled indicates if the processor is enabled.
 }
